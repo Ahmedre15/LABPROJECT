@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AviEw OTT Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+
+
+#main-content .carousel-button.light:hover {
+    background-color: #cc0033; 
+}
+
+/* Live Streams Section */
+#main-content .live-streams-section {
+    background-color: #872e8a; 
+}
+
+/* Music Section */
+#main-content .music-section {
+    background-color: #3d1e6d; 
+}
+
+#main-content .music-title {
+    color: #ff6699; 
+}
+
+/* Movies Section */
+#main-content .movies-section {
+    background: linear-gradient(135deg, #6a0572, #34005e); 
+}
+
+#main-content .movies-section h2 {
+    color: #ff6699; /* Pink */
+}
+
+/* About Section */
+#main-content .about-section {
+    background: linear-gradient(135deg, #ff1d8e, #911414); 
+}
+
+#main-content .about-section h2 {
+    color: #ff0055; 
+}
+
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, * {
+    cursor: auto !important;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #03131de0; 
+    /* color: #fff; */
+    overflow-y: auto; 
+}
+
+#main-content {
+    padding: 20px;
+}
+
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #e23535e0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar .logo {
+    flex: 1;
+}
+
+.navbar .search-bar {
+    flex: 1.5; 
+    display: flex;
+    justify-content: center; 
+}
+
+.navbar .toggle {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 20px; 
+}
+
+/* Search Bar Styling */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 0.5rem;
+    transition: width 0.5s ease;
+    width: 80px; 
+    overflow: hidden; 
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    border-radius: 20px;
+    flex: 1;
+    width: 0; 
+    transition: width 0.5s ease; 
+}
+
+.search-bar button {
+    background-color: #ff0099; 
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: #e60073; 
+}
+
+
+
+/* Toggle Button Styling */
+.toggle {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.toggle span {
+    height: 4px;
+    width: 25px;
+    background: #fff;
+    margin: 3px;
+    transition: all 0.3s ease;
+}
+
+.toggle.active {
+    transform: rotate(180deg);
+}
+
+.toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+/* Logo Styling */
+.navbar-title {
+    color: #b1e240; 
+    font-size: 2.5em;
+    font-family: cursive;
+    /* letter-spacing: 5px; */
+    text-shadow: 10px 5px 10px rgba(74, 8, 255, 0.7);
+    margin: 0;
+    text-transform: none; 
+}
+
+
+
+        /* Horizontal Navbar Styling */
+        .horizontal-nav {
+            display: none;
+            position: fixed;
+            top: 70px;
+            width: 100%;
+            background-color: #062c04; 
+            padding: 1rem 0;
+            box-shadow: 0px 4px 8px rgba(250, 24, 24, 0.5);
+            z-index: 90;
+        }
+        .horizontal-nav.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .horizontal-nav button {
+            background-color: #d41d8b; 
+            border: none;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            margin: 0 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .horizontal-nav button:hover {
+            background-color: #26ac59;
+            box-shadow: 0px 4px 15px rgba(214, 54, 54, 0.3);
+        }
+
+        /* Menu Styling */
+        .menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 70px;
+            right: 0;
+            background-color: #1a1a2e; 
+            width: 200px;
+            padding: 1rem;
+            border-radius: 8px;
+            transform: translateX(100%);
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        .menu.active {
+            display: flex;
+            opacity: 1;
+            transform: translateX(0%);
+        }
+
+        .menu a {
+            color: #ffcc00; 
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease, transform 0.3s ease;
+            transform: translateX(-10px);
+            opacity: 0;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .menu a:hover {
+            color: #00aaff;
+            transform: scale(1.1);
+        }
+
+        /* Background Blur Effect */
+        .blurred {
+            filter: blur(5px);
+        }
+
+        @keyframes slideIn {
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+   
+
+        #main-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+/* Carousel Styling */
+.carousel-container {
+    width: 90%; 
+    max-width: 1200px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    height: 400px; 
+    display: flex;
+    justify-content: center;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 20px;
+}
+
+.carousel-item {
+    flex: 0 0 calc(33.33% - 20px); 
+    transition: transform 0.5s ease;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.carousel-item img:hover {
+    transform: scale(1.05);
+}
+
+/* Arrow Navigation */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.carousel-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-button.light {
+    background-color: #ff3366;
+    color: #121212;
+}
+
+
+
+
+
+/* Live Streams Section */
+.live-streams-section {
+    width: 90%;
+    max-width: 1200px;
+    margin: 3rem auto 2rem;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.live-streams-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-style: unset;
+    color: #7cc77f;
+}
+
+.live-carousel-container {
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+}
+
+.live-carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 20px; 
+}
+
+.live-carousel-item {
+    flex: 0 0 calc(33.33% - 20px);  
+    transition: transform 0.5s ease;
+}
+
+.live-carousel-item img {
+    width: 100%;
+    height: 300px; 
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.live-carousel-item img:hover {
+    transform: scale(1.05);
+}
+
+/* Arrow Navigation for Live Streams */
+.live-carousel-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.live-carousel-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.live-carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.live-carousel-button.light {
+    background-color: #ff0099; 
+    color: #121212;
+}
+
+.live-carousel-button.light:hover {
+    background-color: #e60073; 
+}
+/* Featured Series Section */
+.featured-series-section {
+    width: 90%;
+    max-width: 1200px;
+    margin: 3rem auto 2rem;
+    padding: 1rem;
+    color: #e90c43;
+    font-style: oblique;
+    border-radius: 10px;
+    background-color: #292949; 
+}
+
+.featured-series-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.featured-carousel-container {
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+}
+
+.featured-carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 20px; 
+}
+
+.featured-carousel-item {
+    flex: 0 0 calc(33.33% - 20px);  
+    transition: transform 0.5s ease;
+    position: relative;
+}
+
+.featured-carousel-item img {
+    width: 100%;
+    height: 300px;  
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.featured-carousel-item:hover img {
+    transform: scale(1.2) rotate(3deg);  
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
+}
+
+.featured-carousel-item:not(:hover) img {
+    transform: scale(0.85) rotate(-3deg); 
+}
+
+/* Arrow Navigation for Featured Series */
+.featured-carousel-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.featured-carousel-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.featured-carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.featured-carousel-button.light {
+    background-color: #ff0099;
+    color: #121212;
+}
+
+.featured-carousel-button.light:hover {
+    background-color: #e60073; 
+}
+
+/* Music Section */
+.music-section {
+    width: 90%;
+    max-width: 1200px;
+    margin: 3rem auto 2rem;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.music-section-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #ffcc00; 
+    font-style: italic;
+}
+
+.music-row {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.music-card {
+    background-color: #0e0b16; 
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 10px;
+    flex: 1 1 calc(30% - 20px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    font-style: oblique;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.music-card:hover {
+    transform: scale(1.05) rotate(-2deg); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);  
+}
+
+.music-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    color: #ffcc00; 
+    margin-top: 0.5rem;
+}
+/* Movies Section Styling */
+.movies-section {
+    padding: 3rem 0;
+    text-align: center;
+    color: #fff;
+}
+
+.movies-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    font-family: 'Bebas Neue', cursive; 
+   
+}
+
+.movies-section h2::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: #ff0099;
+    margin: 0.5rem auto 0;
+    border-radius: 10px;
+}
+
+.movies-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    align-items: stretch;
+    transform: perspective(1000px);
+}
+
+.movie-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transform-style: preserve-3d;
+}
+
+.movie-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.movie-item:hover {
+    transform: rotateY(15deg) scale(1.05); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
+}
+
+.movie-item:hover img {
+    transform: scale(1.1); 
+}
+
+.movie-item::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.movie-item:hover::after {
+    opacity: 1; 
+}
+
+.hidden {
+    display: none;
+}
+
+.see-more-button {
+    margin-top: 2rem;
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    background: #00ffdd;
+    border: none;
+    border-radius: 5px;
+    color: #1a1a2e;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.see-more-button:hover {
+    background: #ff0099;
+    transform: scale(1.1); 
+}
+
+/* About Section Styling */
+.about-section {
+    padding: 3rem 0;
+    color: #fff;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.about-section h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    position: relative;
+    font-family: 'Pacifico', cursive; 
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    animation: neon 1.5s infinite alternate;
+}
+
+@keyframes neon {
+    0%, 100% {
+        text-shadow: 
+            0 0 10px #ff0000, 
+            0 0 20px #ff0099, 
+            0 0 30px #ff0000, 
+            0 0 40px #ff0099, 
+            0 0 50px #ff0000, 
+            0 0 60px #ff0099, 
+            0 0 70px #ff0000; 
+    }
+    50% {
+        text-shadow: 
+            0 0 20px #ff0099, 
+            0 0 30px #ff0000, 
+            0 0 40px #ff0099, 
+            0 0 50px #ff0000, 
+            0 0 60px #ff0099, 
+            0 0 70px #ff0000, 
+            0 0 80px #ff0099; 
+    }
+}
+
+
+
+.about-section h2::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: #df168e;
+    margin: 0.5rem auto 1.5rem;
+    border-radius: 10px;
+}
+
+.about-description {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+    max-width: 800px;
+    margin: 0 auto;
+    animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.social-media {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.social-media a {
+    color: #fff;
+    font-size: 2rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+    animation: bounce 1.5s infinite;
+}
+
+.social-media a:hover {
+    transform: scale(1.5); 
+    color: #ffcc00; 
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+#Affan {
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#Affan:hover {
+    transform: translateY(-5px) scale(1.05); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); 
+}
+
+     
+    </style>
+</head>
+<body id="aabbcc">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="./Project(OTT Platform).html">
+                <h1 class="navbar-title"><b>Av!Ew</b></h1>
+            </a>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search...">
+            <button onclick="search()">Q</button>
+        </div>
+        <div class="toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+    
+    
+
+    
+<br><br><br><br><br><br><br>
+
+    <div class="horizontal-nav" id="horizontal-nav">
+        <a href="./Project(OTT Platform).html"><button onclick="removeBlur()">Home</button></a>
+        <a href="#123456"><button onclick="removeBlur()">Live</button></a>
+        <a href="#90000"><button onclick="removeBlur()">Music</button></a>
+        <a href="#45678"><button onclick="removeBlur()">Series</button></a>
+        <a href="#00aaff"><button onclick="removeBlur()">Movies</button></a>
+        <a href="#00000"><button onclick="removeBlur()">About</button></a>
+    </div>
+       <div id="main-content">
+        <!-- Main content goes here -->
+
+        <!-- Carousel Section -->
+        <div class="carousel-container">
+            <div class="carousel-track">
+                <a href="https://tamashaweb.com/pak-vs-aus-odi-t20-series" target="_blank" class="carousel-item"><img src="./assets/Carousel/image1.webp" alt="Image 1"></a>
+                <a href="https://www.espncricinfo.com/series/india-in-south-africa-2024-25-1449299" target="_blank" class="carousel-item"><img src="./assets/Carousel/image2.webp" alt="Image 2"></a>
+                <a href="https://tamashaweb.com/english-premier-league" class="carousel-item" target="_blank"><img src="./assets/Carousel/image3.webp" alt="Image 3"></a>
+                <a href="https://myco.io/sharktankpakistan" class="carousel-item" target="_blank"><img src="./assets/Carousel/image5.jpg" alt="Image 5"></a>
+                <a href="https://tamashaweb.com/green-entertainment" class="carousel-item" target="_blank"><img src="./assets/Carousel/image8.webp" alt="Image 8"></a>
+            </div>
+            <div id="123456" class="carousel-nav">
+                <button class="carousel-button prev light" onclick="prevSlide()">‹</button>
+                <button class="carousel-button next light" onclick="nextSlide()">›</button>
+            </div>
+        </div>
+    </div>
+   
+
+<!-- Live Streams Section -->
+<div class="live-streams-section">
+    <h2 class="live-streams-title">Live Streams</h2>
+    <div class="live-carousel-container">
+        <div class="live-carousel-track">
+            <!-- Add your live stream images here -->
+            <a href="https://tamashaweb.com/english-premier-league" target="_blank" class="live-carousel-item"><img src="./assets/Live/image1.webp" alt="Live Stream 1"></a>
+            <a href="https://tamashaweb.com/english-premier-league-b" target="_blank" class="live-carousel-item"><img src="./assets/Live/image2.webp" alt="Live Stream 2"></a>
+            <a href="https://tamashaweb.com/ary-digital-live" target="_blank" class="live-carousel-item"><img src="./assets/Live/image3.webp" alt="Live Stream 3"></a>
+            <a href="https://tamashaweb.com/geo-news-live" target="_blank" class="live-carousel-item"><img src="./assets/Live/image4.webp" alt="Live Stream 4"></a>
+            <a href="https://tamashaweb.com/set-entertainment" target="_blank" class="live-carousel-item"><img src="./assets/Live/image5.webp" alt="Live Stream 5"></a>
+            <a href="https://tamashaweb.com/nick-jr" target="_blank" class="live-carousel-item"><img src="./assets/Live/image6.webp" alt="Live Stream 6"></a>
+            <a href="https://tamashaweb.com/ary-news" target="_blank" class="live-carousel-item"><img src="./assets/Live/image7.webp" alt="Live Stream 7"></a>
+            <a href="https://tamashaweb.com/nick-india" target="_blank" class="live-carousel-item"><img src="./assets/Live/image8.webp" alt="Live Stream 8"></a>
+            <a href="https://tamashaweb.com/mtv-india" target="_blank" class="live-carousel-item"><img src="./assets/Live/image9.webp" alt="Live Stream 9"></a>
+            <a href="https://tamashaweb.com/english-premier-league-c" target="_blank" class="live-carousel-item"><img src="./assets/Live/image10.webp" alt="Live Stream 10"></a>
+        </div>
+        <div class="live-carousel-nav">
+            <button class="live-carousel-button prev light" onclick="prevLiveSlide()">‹</button>
+            <button id="90000" class="live-carousel-button next light" onclick="nextLiveSlide()">›</button>
+        </div>
+    </div>
+</div>
+ <!-- Music Section -->
+<div class="music-section">
+    <h2 class="music-section-title">Music Section</h2>
+    <div class="music-row">
+        <!-- First Row of Videos -->
+        <div class="music-card">
+            <video width="100%" height="200" controls>
+                <source src="./assets/Music/videoplayback.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h3 class="music-title">We Ain’t Here For Long</h3>
+        </div>
+        <div class="music-card">
+            <video width="100%" height="200" controls>
+                <source src="./assets/Music/videoplayback (1).mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h3 class="music-title">Chal Diye Tum Kahan</h3>
+        </div>
+        <div class="music-card">
+            <video width="100%" height="200" controls>
+                <source src="./assets/Music/videoplayback (2).mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h3 class="music-title">On The Radar Freestyle</h3>
+        </div>
+    </div>
+    <div class="music-row">
+        <!-- Second Row of Videos -->
+        <div class="music-card">
+            <video width="100%" height="200" controls>
+                <source src="./assets/Music/Imagine Dragons - Believer (Lyrics).mp3" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h3 class="music-title">Believer</h3>
+        </div>
+        <div class="music-card">
+            <video width="100%" height="200" controls>
+                <source src="./assets/Music/Shae Gill x Evdeki Saat - One Love - Coke Studio (lyrics.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h3 class="music-title">One Love</h3>
+        </div>
+        <div class="music-card">
+            <video width="100%" height="200" controls>
+                <source src="./assets/Music/videoplayback3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h3 id="45678" class="music-title">Big Dawgs</h3>
+        </div>
+    </div>
+</div>
+<!-- Featured Series Section -->
+<div class="featured-series-section">
+    <h2  class="featured-series-title">Featured Series</h2>
+    <div class="featured-carousel-container">
+        <div class="featured-carousel-track">
+            <!-- Add your featured series images here -->
+            <a href="#series1" target="_blank" class="featured-carousel-item"><img src="./assets/Series/image1.jpg" alt="Featured Series 1"></a>
+            <a href="#series2" target="_blank" class="featured-carousel-item"><img src="./assets/Series/image2.jpg" alt="Featured Series 2"></a>
+            <a href="#series3" target="_blank" class="featured-carousel-item"><img src="./assets/Series/image3.jpeg" alt="Featured Series 3"></a>
+            <a href="#series4" target="_blank" class="featured-carousel-item"><img src="./assets/Series/image4.jpg" alt="Featured Series 4"></a>
+            <a href="#series5" target="_blank" class="featured-carousel-item"><img src="./assets/Series/image5.jpg" alt="Featured Series 5"></a>
+            <a href="#series6" target="_blank" class="featured-carousel-item"><img src="./assets/Series/image6.jpg" alt="Featured Series 6"></a>
+        </div>
+        <div class="featured-carousel-nav">
+            <button class="featured-carousel-button prev light" onclick="prevFeaturedSlide()">‹</button>
+            <button id="00aaff" class="featured-carousel-button next light" onclick="nextFeaturedSlide()">›</button>
+        </div>
+    </div>
+</div>
+
+<section id="movies" class="movies-section">
+    <h2>Movies</h2>
+    <div class="movies-grid">
+        <div class="movie-item"><a href="https://example1.com" target="_blank"><img src="./assets/Movies/movie1.webp" alt="Movie 1"></a></div>
+        <div class="movie-item"><a href="https://example2.com" target="_blank"><img src="./assets/Movies/movie2.webp" alt="Movie 2"></a></div>
+        <div class="movie-item"><a href="https://example3.com" target="_blank"><img src="./assets/Movies/movie3.webp" alt="Movie 3"></a></div>
+        <div class="movie-item"><a href="https://example4.com" target="_blank"><img src="./assets/Movies/movie4.webp" alt="Movie 4"></a></div>
+        <div class="movie-item"><a href="https://example5.com" target="_blank"><img src="./assets/Movies/movie5.webp" alt="Movie 5"></a></div>
+        <div class="movie-item hidden"><a href="https://example6.com" target="_blank"><img src="./assets/Movies/movie6.webp" alt="Movie 6"></a></div>
+        <div class="movie-item hidden"><a href="https://example7.com" target="_blank"><img src="./assets/Movies/movie7.webp" alt="Movie 7"></a></div>
+        <div class="movie-item hidden"><a href="https://example8.com" target="_blank"><img src="./assets/Movies/movie8.webp" alt="Movie 8"></a></div>
+        <div class="movie-item hidden"><a href="https://example9.com" target="_blank"><img src="./assets/Movies/movie9.webp" alt="Movie 9"></a></div>
+        <div class="movie-item hidden"><a href="https://example10.com" target="_blank"><img src="./assets/Movies/movie10.webp" alt="Movie 10"></a></div>
+        <div class="movie-item hidden"><a href="https://example10.com" target="_blank"><img src="./assets/Movies/movie11.webp" alt="Movie 11"></a></div>
+        <div class="movie-item hidden"><a href="https://example10.com" target="_blank"><img src="./assets/Movies/movie12.webp" alt="Movie 102"></a></div>
+    </div>
+    <button id="see-more-button" class="see-more-button">See More</button>
+</section>
+
+<section id="about" class="about-section">
+    <h2 id="00000">About Us</h2>
+    <p class="about-description">
+        Welcome to our OTT platform! Dive into a world of endless entertainment, where you can stream your favorite movies, series, music, and live events. Our mission is to bring the best content right to your screens, providing you with a seamless and enjoyable experience. Join us on this exciting journey and never miss a moment of entertainment!
+    </p>
+    <div class="social-media">
+        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+</section>
+
+<a href="#aabbcc"><input type="image" width="90px" id="Affan" src="./assets/TOP.png"></a>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const searchBar = document.querySelector('.search-bar');
+
+    searchInput.addEventListener('focus', () => {
+        searchInput.style.width = '150px'; 
+    });
+
+    searchInput.addEventListener('blur', () => {
+        if (searchInput.value.trim() === '') {
+            searchInput.style.width = '0';  
+        }
+    });
+});
+
+function search() {
+    const query = document.getElementById('search-input').value.toLowerCase();
+    if (query.includes('home')) {
+        document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+    } else if (query.includes('live')) {
+        document.getElementById('123456').scrollIntoView({ behavior: 'smooth' });
+    } else if (query.includes('music')) {
+        document.getElementById('90000').scrollIntoView({ behavior: 'smooth' });
+    } else if (query.includes('series')) {
+        document.getElementById('45678').scrollIntoView({ behavior: 'smooth' });
+    } else if (query.includes('movies')) {
+        document.getElementById('00aaff').scrollIntoView({ behavior: 'smooth' });
+    } else if (query.includes('about')) {
+        document.getElementById('00000').scrollIntoView({ behavior: 'smooth' });
+    } else {
+        alert('Section not found');
+    }
+}
+
+
+
+
+  function toggleMenu() { 
+      const menu = document.getElementById('horizontal-nav');
+      const toggle = document.querySelector('.toggle'); 
+      const mainContent = document.getElementById('main-content');
+      const isMenuActive = menu.classList.contains('active');
+      menu.classList.toggle('active');
+      toggle.classList.toggle('active');
+      if (isMenuActive) { 
+          mainContent.classList.remove('blurred');
+      } else { 
+          mainContent.classList.add('blurred'); 
+      } 
+  }
+
+  function removeBlur() { 
+      const mainContent = document.getElementById('main-content');
+      mainContent.classList.remove('blurred'); 
+  }
+
+  function navigateTo(section) { 
+      document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
+      removeBlur(); 
+  }
+
+  // Custom Cursor Movement
+  const customCursor = document.getElementById('custom-cursor');
+  document.addEventListener('mousemove', (e) => {
+      customCursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+  });
+
+  let currentIndex = 1;
+  const track = document.querySelector('.carousel-track');
+  const items = document.querySelectorAll('.carousel-item');
+  const itemCount = items.length;
+
+  // Clone the first and last items for seamless looping
+  const firstClone = items[0].cloneNode(true);
+  const lastClone = items[itemCount - 1].cloneNode(true);
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, items[0]);
+
+  function updateCarousel() {
+      const offset = -currentIndex * 100 / 3; 
+      track.style.transition = 'transform 0.5s ease';
+      track.style.transform = `translateX(${offset}%)`;
+  }
+
+  function nextSlide() {
+      currentIndex = (currentIndex + 1) % (itemCount + 2); 
+      updateCarousel();
+      if (currentIndex === itemCount + 1) {
+          setTimeout(() => {
+              track.style.transition = 'none';
+              currentIndex = 1; 
+              updateCarousel();
+          }, 500); 
+      }
+  }
+
+  function prevSlide() {
+      currentIndex = (currentIndex - 1 + itemCount + 2) % (itemCount + 2); 
+      updateCarousel();
+      if (currentIndex === 0) {
+          setTimeout(() => {
+              track.style.transition = 'none';
+              currentIndex = itemCount; 
+              updateCarousel();
+          }, 500); 
+      }
+  }
+
+  // Auto scroll every 3 seconds
+  setInterval(nextSlide, 3000);
+
+  // Initial update to position at the first item
+  updateCarousel();
+
+  let liveCurrentIndex = 0;
+  const liveTrack = document.querySelector('.live-carousel-track');
+  const liveItems = document.querySelectorAll('.live-carousel-item');
+  const liveItemCount = liveItems.length;
+
+  // Clone the first and last items for seamless looping
+  const liveFirstClone = liveItems[0].cloneNode(true);
+  const liveLastClone = liveItems[liveItemCount - 1].cloneNode(true);
+  liveTrack.appendChild(liveFirstClone);
+  liveTrack.insertBefore(liveLastClone, liveItems[0]);
+
+  function updateLiveCarousel() {
+      const offset = -liveCurrentIndex * (100 / 3); 
+      liveTrack.style.transition = 'transform 0.5s ease';
+      liveTrack.style.transform = `translateX(${offset}%)`;
+  }
+
+  function nextLiveSlide() {
+      liveCurrentIndex = (liveCurrentIndex + 1) % (liveItemCount + 2); // Update index for cloned items
+      updateLiveCarousel();
+      if (liveCurrentIndex === liveItemCount + 1) {
+          setTimeout(() => {
+              liveTrack.style.transition = 'none';
+              liveCurrentIndex = 1; // Reset to first clone
+              updateLiveCarousel();
+          }, 500); // Match the transition duration
+      }
+  }
+
+  function prevLiveSlide() {
+      liveCurrentIndex = (liveCurrentIndex - 1 + liveItemCount + 2) % (liveItemCount + 2); // Update index for cloned items
+      updateLiveCarousel();
+      if (liveCurrentIndex === 0) {
+          setTimeout(() => {
+              liveTrack.style.transition = 'none';
+              liveCurrentIndex = liveItemCount; // Reset to last clone
+              updateLiveCarousel();
+          }, 500); // Match the transition duration
+      }
+  }
+
+  // Auto scroll every 3 seconds
+  setInterval(nextLiveSlide, 3000);
+
+  let featuredCurrentIndex = 0;
+  const featuredTrack = document.querySelector('.featured-carousel-track');
+  const featuredItems = document.querySelectorAll('.featured-carousel-item');
+  const featuredItemCount = featuredItems.length;
+
+  // Clone the first and last items for seamless looping
+  const featuredFirstClone = featuredItems[0].cloneNode(true);
+  const featuredLastClone = featuredItems[featuredItemCount - 1].cloneNode(true);
+  featuredTrack.appendChild(featuredFirstClone);
+  featuredTrack.insertBefore(featuredLastClone, featuredItems[0]);
+
+  function updateFeaturedCarousel() {
+      const offset = -featuredCurrentIndex * (100 / 3);
+      featuredTrack.style.transition = 'transform 0.5s ease';
+      featuredTrack.style.transform = `translateX(${offset}%)`;
+  }
+
+  function nextFeaturedSlide() {
+      featuredCurrentIndex = (featuredCurrentIndex + 1) % (featuredItemCount + 2); 
+      updateFeaturedCarousel();
+      if (featuredCurrentIndex === featuredItemCount + 1) {
+          setTimeout(() => {
+              featuredTrack.style.transition = 'none';
+              featuredCurrentIndex = 1; // Reset to first clone
+              updateFeaturedCarousel();
+          }, 500); // Match the transition duration
+      }
+  }
+
+  function prevFeaturedSlide() {
+      featuredCurrentIndex = (featuredCurrentIndex - 1 + featuredItemCount + 2) % (featuredItemCount + 2); // Update index for cloned items
+      updateFeaturedCarousel();
+      if (featuredCurrentIndex === 0) {
+          setTimeout(() => {
+              featuredTrack.style.transition = 'none';
+              featuredCurrentIndex = featuredItemCount; // Reset to last clone
+              updateFeaturedCarousel();
+          }, 500); // Match the transition duration
+      }
+  }
+
+  // Auto scroll every 3 seconds
+  setInterval(nextFeaturedSlide, 3000);
+
+  document.getElementById('see-more-button').addEventListener('click', function() {
+      const hiddenItems = document.querySelectorAll('.movie-item.hidden');
+      hiddenItems.forEach(item => item.classList.remove('hidden'));
+      this.style.display = 'none'; // Hide the button after showing more items
+  });
+
+</script>
+</body></html>
+
+
+
+
+
